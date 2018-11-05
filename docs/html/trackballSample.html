@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>introduction</title>
+    <meta charset="utf-8">
+    <script src="../js/three.min.js"></script>
+    <script src="../js/TrackballControls.js"></script>
+</head>
+
+<body onload="threeStart();">
+    <div id="canvas-frame"></div>
+    <script>
+        var width, height;
+        var renderer;
+
+        function initThree() {
+            width = document.getElementById('canvas-frame').clientWidth;
+            height = document.getElementById('canvas-frame').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+            renderer.setSize(width, height);
+            document.getElementById('canvas-frame').appendChild(renderer.domElement);
+            renderer.shadowMapEnabled = true;
+        }
+
+        var camera;
+        var controls;
+
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+            camera.up.x = 0;
+            camera.up.y = 0;
+            camera.up.z = 1;
+            camera.position.set(0, 150, 400);
+            controls = new THREE.TrackballControls(camera); //追加           
+        }
+
+        var scene;
+
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+
+        var light, light2;
+
+        function initLight() {
+            light = new THREE.DirectionalLight(0xcccccc, 1.6);
+            light.position = new THREE.Vector3(-100, 150, 100);
+            light.castShadow = true;
+            scene.add(light);
+
+            light2 = new THREE.AmbientLight(0x333333);
+            light2.position.set(light.position.x, light.position.y, light.position.z);
+            scene.add(light2);
+        }
+
+
+        function initObject() {
+            var cube = new THREE.Mesh(
+                new THREE.SphereGeometry(100, 50, 50),
+                new THREE.MeshPhongMaterial({
+                    color: 0x00FF7
+                }));
+
+            scene.add(cube);
+            cube.position.set(0, 30, 0);
+        }
+
+        function loop() {
+            requestAnimationFrame(loop);
+            controls.update(); //追加  
+            renderer.clear();
+            renderer.render(scene, camera);
+        }
+
+        function threeStart() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            loop();
+        }
+
+    </script>
+</body>
+
+</html>

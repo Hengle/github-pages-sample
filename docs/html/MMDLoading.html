@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>WebGL練習</title>
+    <script src="../js/three.min.js"></script>
+    <script src="../js/charsetencoder.min.js"></script>
+    <script src="../js/MMDLoader.js"></script>
+    <script src="../js/mmdparser.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/TGALoader.js"></script>
+    <script src="../js/TrackballControls.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+    <script>
+        window.addEventListener('load', init);
+
+        function init() {
+
+            const width = 960;
+            const height = 540;
+
+            // シーン、カメラ、レンダラーを作成
+            var scene = new THREE.Scene();
+
+            var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.set(0, 2, 5);
+
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.querySelector('#myCanvas'),
+                antialias: true
+            });
+            renderer.setSize(width, height);
+            renderer.setClearColor(0x888888);
+            renderer.shadowMap.enabled = true;
+
+            //            var geometry = new THREE.BoxGeometry(1, 1, 1); // var material = new THREE.MeshBasicMaterial({ // color: 0x00ff00 // }); // var cubeGeom = new THREE.BoxGeometry(1, 1, 1); // var cubeMat = new THREE.MeshLambertMaterial({ // color: 0x00ff00 // }); // var cube = new THREE.Mesh(cubeGeom, cubeMat); // cube.position.set(0, 1, 0); // scene.add(cube); // cube.castShadow = true;
+
+            var light = new THREE.DirectionalLight();
+            scene.add(light);
+            light.position.set(0, 5, 0);
+            light.castShadow = true;
+
+            var axis = new THREE.AxisHelper(20);
+            scene.add(axis);
+
+            var planeGeom = new THREE.PlaneGeometry(5, 5);
+            var planeMat = new THREE.MeshLambertMaterial({
+                color: 0xffffff,
+                side: THREE.DoubleSide
+            });
+            var plane = new THREE.Mesh(planeGeom, planeMat);
+            plane.rotation.x += Math.PI / 2; // 平面X軸周りに90度回転
+            scene.add(plane);
+            plane.receiveShadow = true;
+
+            //var controls = new THREE.TrackballControls(camera, renderer.domElement);
+            var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            var loader = new THREE.MMDLoader();
+            var model;
+            //            loader.load("../mmd/animasa/初音ミク.pmd", function(obj) {
+            //                obj.scale.set(0.2, 0.2, 0.2);
+            //                obj.castShadow = true;
+            //                scene.add(obj);
+            //            });
+
+            loader.load("../mmd/animasa/初音ミク.pmd", function(obj) {
+                obj.scale.set(0.2, 0.2, 0.2);
+                obj.castShadow = true;
+                scene.add(obj);
+                model = obj;
+
+                loader.loadAnimation('../mmd/animasa/AA.vmd', "../mmd/animasa/初音ミク.pmd", function(vmd) {
+                    //scene.add(model);
+                    //loader.pourVmdIntoModel(model, vmd);
+                    //mmdHelper.setAnimation(model);  				  		
+                });
+
+            });
+
+            var clock = new THREE.Clock();
+
+            (function render() {
+                requestAnimationFrame(render);
+
+                //                cube.rotation.x += 0.02;
+                //                cube.rotation.y += 0.02;
+
+                controls.update();
+
+                renderer.animate(clock.getDelta());
+                renderer.render(scene, camera);
+            })();
+        }
+
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+
+</html>

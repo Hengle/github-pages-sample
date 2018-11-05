@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>WebGL練習</title>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <!--  <script src="js/three.min.js"></script>-->
+  <!--
+  <link rel="stylesheet" href="style/index1.css">
+  <script src="js/index1_reset.js"></script>
+  <script src="js/OrbitControls.js"></script>
+    <script src="js/webgl1-1.js"></script>
+  <script src="js/liquidfun.js"></script>
+  <script src="js/pixi.min.js"></script>
+  <script src="js/webgl1-2.js"></script>
+  <script src="js/dat.gui.min.js"></script>
+  <script src="js/ImprovedNoise.js"></script>
+  <script src="js/Stats.js"></script>
+  <script src="js/socket1-1.js"></script>
+-->
+
+  <!--
+  <link href="lod-terrain-master/css/style.css" rel="stylesheet">
+<script src="lod-terrain-master/js/config.js"></script>
+<script src="lod-terrain-master/js/require.js"></script>
+-->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="../js/jquery-3.2.1.min.js"></script>
+  <script src="js/lib/three.min.js"></script>
+  <!--  <script src="../js/OrbitControls.js"></script>-->
+  <script src="js/config.js"></script>
+  <script data-main="../main" src="js/require.js"></script>
+
+  <!--  <script src="js/index1.js"></script>-->
+</head>
+
+<body>
+  <div id="container-lod">
+    <div id="threejs-container">Loading...</div>
+    <div id="share-container"></div>
+    <div class="textFade">Welcome to WebGL</div>
+  </div>
+
+  <!--
+  <main>
+
+    <div id="container-lod">
+      <div id="threejs-container">Loading...</div>
+      <div id="share-container"></div>
+      <div class="textFade">Welcome to WebGL</div>
+    </div>
+
+    <div class="cont">
+
+      <div id="canvas1">
+        <canvas id="myCanvas1">コンテンツ１セカイ系</canvas>
+        <div class="explain">
+          <h2>この作品の説明</h2>
+          <p>かくかくしかじかまるまるうまうまこれこれこういう感じの作品です。あのサイトを参考にしました。こういう楽しみ方ができます。こんな感じに操作してみてください。使ったものとかわかりやすい図とか作ってはっつける。わかりやすい表現でできる限り専門用語を使わずふわっとした言葉選んで</p>
+          <div>
+            <div class="img">図解とか</div>
+            <h3>e.x.カメラ<br>（一箇所固有名詞で！）<br>（特に頑張ったところ、この作品の肝）</h3>
+            <p>ちょっと詳しい説明をコンパクトに。自分がアピールしたい部分を頑張って説明して。説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト</p>
+          </div>
+          <div>
+            <div class="img">イメージイラストとか</div>
+            <h3>e.x.カメラ<br>（一箇所固有名詞で！）<br>（特に頑張ったところ、この作品の肝）</h3>
+            <p>ちょっと詳しい説明をコンパクトに。自分がアピールしたい部分を頑張って説明して。説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="canvas2">
+                <canvas id="myCanvas2"></canvas>
+        <div class="explain">かくかくしかじかまるまるうまうまこれこれこういう感じの作品です。使ったものとかわかりやすい図とか作ってはっつける</div>
+      </div>
+
+      <div id="canvas3">
+        <div class="explain"></div>
+      </div>
+
+      <div id="canvas4">
+        <div id="container"></div>
+        <div id="prompt"></div>
+        <p class="fps"></p>
+        <div class="explain">説明</div>
+      </div>
+
+      <div id="canvas5">
+        <canvas id="myCanvas5">コンテンツ１セカイ系</canvas>
+        <div class="explain"></div>
+      </div>
+    </div>
+
+    <div class="aside">この作品の説明</div>
+    <div class="mob">
+      <ul>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+        <li>parameter</li>
+      </ul>
+    </div>
+
+    <div class="side">
+      <h1>WebGL</h1>
+      <ul class="sideWebgl">
+        <li><a href="#canvas1">ようこそ</a></li>
+        <li><a href="#canvas2">重力・流体系</a></li>
+        <li><a href="#canvas3">MMD</a></li>
+      </ul>
+      <h1>+Socket.io</h1>
+      <ul class="sideSocket">
+        <li><a href="#canvas4">Webカメラ</a></li>
+        <li><a href="#canvas5">キャラ操作</a></li>
+      </ul>
+      <div class="memo webgl">
+        <h2>WebGLとは？</h2>
+        <p>ブラウザでグラフィックがすごいってことを簡単に紹介するような説明文</p>
+      </div>
+      <div class="memo socket">
+        <h2>Socket.ioとは？</h2>
+        <p>node.jsでペアリングがすごいってことを簡単に紹介するような説明文</p>
+      </div>
+    </div>
+  </main>
+-->
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>WebGL練習</title>
+    <script src="../js/three.min.js"></script>
+    <script src="../js/ModelCanvas.js"></script>
+    <script src="../js/TrackballControls.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+
+</head>
+
+<body>
+
+    <script type="x-shader/x-vertex" id="vshader">
+        varying vec3 pos; void main(){ pos = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+    </script>
+    <script type="x-shader/x-fragment" id="fshader">
+        varying vec3 pos; vec3 random3(vec3 st){ st = vec3( dot(st,vec3(127.1,311.7,231.3)), dot(st,vec3(269.5,183.3,112.6)), dot(st,vec3(87.12,103.1,193.6)) ); return -1.0 + 2.0*fract(sin(st)*43758.5453123); } float noise3d(vec3 pos, float scale) { vec3 p = pos / scale; vec3 i = floor(p); vec3 f = fract(p); vec3 u = f * f * (3.0 - 2.0 * f); float g000 = dot(random3(i + vec3(0.0,0.0,0.0)), f - vec3(0.0,0.0,0.0)); float g100 = dot(random3(i + vec3(1.0,0.0,0.0)), f - vec3(1.0,0.0,0.0)); float g010 = dot(random3(i + vec3(0.0,1.0,0.0)), f - vec3(0.0,1.0,0.0)); float g001 = dot(random3(i + vec3(0.0,0.0,1.0)), f - vec3(0.0,0.0,1.0)); float g110 = dot(random3(i + vec3(1.0,1.0,0.0)), f - vec3(1.0,1.0,0.0)); float g101 = dot(random3(i + vec3(1.0,0.0,1.0)), f - vec3(1.0,0.0,1.0)); float g011 = dot(random3(i + vec3(0.0,1.0,1.0)), f - vec3(0.0,1.0,1.0)); float g111 = dot(random3(i + vec3(1.0,1.0,1.0)), f - vec3(1.0,1.0,1.0)); float g00 = mix(g000, g100, u.x); float g01 = mix(g001, g101, u.x); float g10 = mix(g010, g110, u.x); float g11 = mix(g011, g111, u.x); float g0 = mix(g00, g10, u.y); float g1 = mix(g01, g11, u.y); return mix(g0, g1, u.z); } void main() { float gradation = (pos.y + 10.0) / 13.0; float scale = 3.0; float ampl = 0.3; vec4 noise = vec4(vec3(noise3d(pos.xyz, scale)), 0.0)+0.5*vec4(vec3(noise3d(pos.xyz, 0.5*scale)),0.0)+0.25*vec4(vec3(noise3d(pos.xyz, 0.25*scale)), 0.0)+0.125*vec4(vec3(noise3d(pos.xyz, 0.125*scale)), 0.0); gl_FragColor = vec4(0.7 - 0.7 * gradation, 0.9 * gradation, 1.0, 1.0) + ampl * noise; }
+    </script>
+    <script type="text/javascript">
+        var modelCanvas = new ModelCanvas(400, 400);
+        modelCanvas.init();
+
+    </script>
+</body>
+
+</html>

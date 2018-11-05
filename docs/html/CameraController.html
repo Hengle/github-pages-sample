@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>WebGL練習</title>
+    <script src="../js/three.min.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+    <script>
+        window.addEventListener('load', init);
+
+        function init() {
+
+            // サイズを指定
+            const width = 960;
+            const height = 540;
+
+            // レンダラーを作成
+            const renderer = new THREE.WebGLRenderer({
+                canvas: document.querySelector('#myCanvas'),
+            });
+            renderer.setSize(width, height);
+
+            // シーンを作成
+            const scene = new THREE.Scene();
+
+            // カメラを作成
+            const camera = new THREE.PerspectiveCamera(45, width / height);
+
+            // カメラの初期座標を設定
+            camera.position.set(0, 0, 1000);
+
+            // カメラコントローラーを作成
+            const controls = new THREE.OrbitControls(camera);
+
+            // 形状とマテリアルからメッシュを作成します
+
+            const mesh = new THREE.Mesh(
+                new THREE.BoxGeometry(300, 300, 300),
+                new THREE.MeshNormalMaterial());
+            scene.add(mesh);
+
+            /*
+            const geometry = new THREE.PlaneGeometry(5, 20, 32);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                side: THREE.DoubleSide
+            });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+*/
+
+            tick();
+
+            // 毎フレーム時に実行されるループイベントです
+            function tick() {
+                // レンダリング
+                renderer.render(scene, camera);
+                requestAnimationFrame(tick);
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+
+</html>
