@@ -5,4 +5,4 @@ var count0 = 0;
 var count1 = 0;
 var startObj = [];
 var tickObj = [];
-var changeGui;
+var flg = false;

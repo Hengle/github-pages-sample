@@ -118,7 +118,6 @@ define(["three", "camera", "container", "geometry", "material", "noise", "render
         app.terrain.offset.x = camera.position.x;
         app.terrain.offset.y = camera.position.y;
         renderer.render(scene, camera);
-        console.log("kkkk");
       }
     };
     return app;
