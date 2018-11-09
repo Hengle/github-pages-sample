@@ -52,15 +52,28 @@ main {
   color: white;
   color: black;
   display: none;
-  height: calc(100% - 80px);
+  /*  display: block;*/
+  height: calc(100% - 100px);
+  /*  height: 100%;*/
   left: 0;
-  opacity: 0.8;
-  padding: 40px;
+  opacity: 0.9;
+  padding: 50px 50px 50px 80px;
   position: absolute;
   top: 0;
-  width: calc(80% - 80px);
-  width: calc(1625px * 0.8 - 80px);
-  z-index: 100;
+  width: calc(100% - 130px);
+  width: calc(1625px * 0.8 - 130px);
+  width: calc(100% - 130px);
+  z-index: 1;
+}
+
+.explain h2 {
+  margin-top: 0;
+}
+
+.explain img {
+  float: left;
+  margin-right: 10px;
+  width: 295px;
 }
 
 .explain div {
@@ -69,29 +82,95 @@ main {
   width: calc(85% - 20px);
 }
 
-.explain div .img {
-  background-color: gray;
-  display: block;
-  float: left;
-  height: 200px;
-  margin-right: 20px;
-  opacity: 0.8;
-  position: relative;
-  text-align: center;
-  width: calc(320px - 20px);
-}
-
 .explain div h3 {
   display: inline-block;
   margin: 0;
-  width: calc(100% - 340px);
+  margin-left: 20px;
+  width: calc(100% - 340px - 20px);
 }
 
 .explain div p {
   display: inline-block;
   margin-bottom: 0;
-  width: calc(100% - 340px);
+  margin-left: 20px;
+  width: calc(100% - 340px - 20px);
 }
+
+/*canvas1*/
+
+#equal {
+  /*  float: left;*/
+  font-family: "Impact";
+  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#equal2 {
+  /*  display: inline-block;*/
+  /*  float: left;*/
+}
+
+#scroll {
+  border: 1px solid gray;
+  color: dimgray;
+  font-family: 'Courier';
+  font-size: 15px;
+  margin-top: 0;
+  height: calc(120px - 2px - 20px);
+  overflow: scroll;
+  padding: 10px;
+  /*  width:80%;*/
+}
+
+.explain .canvases {
+  display: inline;
+  display: none;
+}
+
+.explain .canvas {
+  border: 10px solid black;
+  border-radius: 100px;
+  height: calc(80px - 20px);
+  width: calc(100px - 20px);
+}
+
+.explain .canvas:first-child {
+  position: absolute;
+  right: 400px;
+  top: 50px;
+}
+
+.explain .canvas:nth-child(2) {
+  position: absolute;
+  right: 200px;
+  top: 80px;
+}
+
+.explain .canvas:nth-child(3) {
+  position: absolute;
+  right: 10px;
+  top: 250px;
+}
+
+/*canvas3*/
+
+.threeimg {
+  margin-top: 30px;
+}
+
+#miku div {
+  text-align: right;
+  width: calc(100% - 340px - 20px);
+}
+
+#miku img {
+  display: block;
+  float: right;
+  margin: 0;
+  margin-left: 30px;
+}
+
 
 .aside {
   border: 1px solid orange;
@@ -107,6 +186,7 @@ main {
   bottom: 20px;
   right: -150px;
   width: 20%;
+  z-index: 10;
 }
 
 .sideWebgl li a {
